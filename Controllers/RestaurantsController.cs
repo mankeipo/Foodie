@@ -21,22 +21,23 @@ namespace Foodie.Controllers
         }
 
         // GET: api/Restaurants
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Restaurant>>> GetRestaurants()
+        public ActionResult<IEnumerable<Restaurant>> GetRestaurants()
         {
-            var restaurants = await _context.Restaurants.Include(r => r.Address).ToListAsync();
+            var restaurants = _context.Restaurants.Include(r => r.Address).ToList();
 
             foreach (var restaurant in restaurants)
             {
-                restaurant.Address = await _context.Address.FindAsync(restaurant.LocationId);
+                restaurant.Address = _context.Address.Find(restaurant.LocationId);
             }
 
             if (restaurants == null)
             {
-                return NotFound();
+                var statusDescription = "No restaurants found.";
+                return StatusCode(StatusCodes.Status404NotFound, new { statusCode = StatusCodes.Status404NotFound, statusDescription });
             }
 
-            return restaurants;
+            var successDescription = "Successfully retrieved restaurants.";
+            return StatusCode(StatusCodes.Status200OK, new { statusCode = StatusCodes.Status200OK, statusDescription = successDescription, restaurants });
         }
 
         // GET: api/Restaurants/foodtype/{foodType}
@@ -47,12 +48,14 @@ namespace Foodie.Controllers
                                                          .Where(r => r.FoodType.ToLower() == foodType.ToLower())
                                                          .ToListAsync();
 
-            if (restaurants == null || restaurants.Count == 0)
+            if (restaurants == null)
             {
-                return NotFound();
+                var statusDescription = "No restaurants found.";
+                return StatusCode(StatusCodes.Status404NotFound, new { statusCode = StatusCodes.Status404NotFound, statusDescription });
             }
 
-            return restaurants;
+            var successDescription = "Successfully retrieved restaurants.";
+            return StatusCode(StatusCodes.Status200OK, new { statusCode = StatusCodes.Status200OK, statusDescription = successDescription, restaurants });
         }
 
         // GET: api/Restaurants/5
@@ -63,10 +66,12 @@ namespace Foodie.Controllers
 
             if (restaurant == null)
             {
-                return NotFound();
+                var statusDescription = "No restaurants found.";
+                return StatusCode(StatusCodes.Status404NotFound, new { statusCode = StatusCodes.Status404NotFound, statusDescription });
             }
 
-            return restaurant;
+            var successDescription = "Successfully retrieved restaurants.";
+            return StatusCode(StatusCodes.Status200OK, new { statusCode = StatusCodes.Status200OK, statusDescription = successDescription, restaurant });
         }
 
         // PUT: api/Restaurants/5
