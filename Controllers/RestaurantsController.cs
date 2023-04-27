@@ -101,8 +101,8 @@ namespace Foodie.Controllers
                     throw;
                 }
             }
-
-            return NoContent();
+            var statusDescription = "Restaurants updated.";
+            return StatusCode(StatusCodes.Status200OK, new { statusCode = StatusCodes.Status200OK, statusDescription = statusDescription, restaurant });
         }
 
         // POST: api/Restaurants
@@ -129,7 +129,8 @@ namespace Foodie.Controllers
             _context.Restaurants.Remove(restaurant);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            var statusDescription = "Restaurants deleted.";
+            return StatusCode(StatusCodes.Status200OK, new { statusCode = StatusCodes.Status200OK, statusDescription = statusDescription});
         }
 
         private bool RestaurantExists(int id)

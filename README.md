@@ -9,9 +9,12 @@
 
 
 # Sample Request Body
-1. GET …api/restaurants
-2. GET …api/restaurants/{id}
-3. GET …api/restaurants/foodType/{foodtype}
+1. GET …api/restaurants                         #This retrieves the data of all restaurants 
+2. GET …api/restaurants/{id}                    #This retrieves the data of this specific restaurant
+3. GET …api/restaurants/foodType/{foodtype}     #This retrieves the data of all restaurants with this specific foodtype
+4. POST …api/restaurants/                       #This adds a new restaurant to the database.
+5. PUT …api/restaurants/{id}                    #This updates a current restaurant in the database with this specific id
+6. DELETE …api/restaurants/{id}                 #This deletes a current restaurant in the database with this specific id
 
 # Sample Response Body
 ```
