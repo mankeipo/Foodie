@@ -16,6 +16,8 @@
 # Sample Response Body
 ```
 GET …api/restaurants/{id}
+"statusCode": 200,
+"statusDescription": "Successfully retrieved restaurants.",
 "restaurantId": 1,
     "restaurant_Name": "Emily - West Village",
     "foodType": "Burger",
